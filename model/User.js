@@ -21,10 +21,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       min: 5,
     },
-    todoList: {
-      type: Array,
-      default: [],
+    profilePic: {
+      type: String,
+      required: false,
     },
+    // todoList: {
+    //   type: Array,
+    //   default: [],
+    // },
   },
   { timespams: true }
 );

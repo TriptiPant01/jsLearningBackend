@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   getTodoController,
   postTodoController,
@@ -21,5 +22,11 @@ route.put("/:id", getTodoByIdAndUpdate);
 route.delete("/:id", getTodoByIdAndDelete);
 route.delete("/", deleteAllTodos);
 route.post("/updateAll", updateAllTodos);
+
+// route.get("/list", (req, res) => {
+//   res.json({
+//     message: "this is test",
+//   });
+// });
 
 export default route;

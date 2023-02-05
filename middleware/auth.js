@@ -6,11 +6,12 @@ export const verifyToken = async (req, res, next) => {
     if (!token) {
       return res.status(403).send("Access Denied");
     }
-    if (token.startsWith("Bearer ")) {
-      token = token.slice(7, token.length).trimLeft();
-    }
+    // if (token.startsWith("Bearer ")) {
+    // token = token.slice(7, token.length).trimLeft();
+    token = req.headers.authorization.split(" ")[1];
+    // }
 
-    const verified = Jwt.verify(token, process.env.SECRET_KEY);
+    const verified = Jwt.verify(token, "12345");
     req.user = verified;
 
     next();
@@ -21,7 +22,7 @@ export const verifyToken = async (req, res, next) => {
 
 export const TestMiddleware = async (req, res, next) => {
   console.log("this is testMiddleware");
-  return true;
+  next();
 };
 
 export default verifyToken;

@@ -1,11 +1,11 @@
 import Todo from "../model/Todo.js";
 
 export const getTodoController = async (request, response) => {
-  // console.log(request.user, request.user.userDetail.email);
+  console.log(request.user);
   try {
     // console.log(request.body);
-    const list = await Todo.find({ email: "ball@gamail.com" });
 
+    const list = await Todo.find();
     return response.status(200).json(list);
   } catch (err) {
     return response.status(500).json(err.message);

@@ -15,10 +15,19 @@ import userRoute from "./routes/user.js";
 const app = express();
 app.use(cors()); // request from different domain
 app.use(bodyParser.json()); // parse the incoming request
+app.use("/uploads", express.static("images"));
+
 app.use("/todo", todoRoute);
+
 app.use("/", userRoute);
 
 const PORT = 8000;
+
+app.get("/list", (req, res) => {
+  res.json({
+    message: "this is test",
+  });
+});
 
 Connection();
 

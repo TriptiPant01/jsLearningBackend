@@ -10,7 +10,7 @@ import { upload } from "../upload.js";
 
 const route = express.Router();
 
-route.post("/login", async (request, response) => {
+route.post("/login", upload, async (request, response) => {
   try {
     const { fullName, email, password } = request.body;
 
@@ -24,22 +24,32 @@ route.post("/login", async (request, response) => {
     }
 
     // const todo = Todo.find();
-    const token = jwt.sign({ userDetail }, process.env.SECRET_KEY);
+    const token = jwt.sign({ userDetail }, "12345");
     delete userDetail.password;
 
     response.status(200).json({
       token,
       fullName: userDetail.fullname,
       email: userDetail.email,
-      // todoList: todo,
+      profilePic: userDetail.profilePic,
+      todoList: [],
     });
   } catch (err) {
     response.status(500).json({ error: err.message });
   }
 });
 
-route.post("/register", async (req, res) => {
+route.post("/register", upload, async (req, res) => {
   const { fullname, email, password } = req.body;
+
+  /// for image upload
+
+  // console.log(req.file);
+  // if (!req.file) {
+  //   return res.status(400).json({ message: "Please upload your file" });
+  // } else {
+  //   // console.log(req.file);
+  // }
   if (!fullname || !email || !password)
     return res.status(400).json({ message: "Please enter all the fields" });
   const user = await User.findOne({ email });
@@ -55,6 +65,7 @@ route.post("/register", async (req, res) => {
         fullname,
         email,
         password: passwordHash,
+        // profilePic: req.file.filename || "",
       });
 
       await newUser.save();
@@ -66,10 +77,15 @@ route.post("/register", async (req, res) => {
 });
 
 route.post("/profile", upload, function (req, res, next) {
-  if (!req.file) {
-    return res.status(400).json({ message: "Please upload your file" });
-  } else {
-    console.log(req.file);
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload your file" });
+      elseif();
+    } else {
+      console.log(req.file);
+    }
+  } catch (err) {
+    console.log(err);
   }
 
   // req.file is the `avatar` file
