@@ -21,7 +21,7 @@ app.use("/todo", todoRoute);
 
 app.use("/", userRoute);
 
-const PORT = 8000;
+const port = process.env.PORT || 8000;
 
 app.get("/list", (req, res) => {
   res.json({
@@ -31,4 +31,4 @@ app.get("/list", (req, res) => {
 
 Connection();
 
-app.listen(PORT, () => console.log("Successfully connected", PORT));
+app.listen(port, () => console.log("Successfully connected", port));
